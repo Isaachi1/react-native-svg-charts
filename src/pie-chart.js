@@ -33,6 +33,7 @@ class PieChart extends PureComponent {
     render() {
         const {
             data,
+            svg,
             dataPoints,
             innerRadius,
             outerRadius,
@@ -138,12 +139,13 @@ class PieChart extends PureComponent {
                                     return null
                                 })}
                                 {pieSlices.map((slice, index) => {
-                                    const { key, onPress, svg } = data[index]
+                                    const { key, onPress, svg: svgPath } = data[index]
                                     return (
                                         <Path
                                             key={key}
-                                            onPress={onPress}
                                             {...svg}
+                                            {...svgPath}
+                                            onPress={onPress}
                                             d={arcs[index](slice)}
                                             animate={animate}
                                             animationDuration={animationDuration}
@@ -174,6 +176,7 @@ PieChart.propTypes = {
             arc: PropTypes.object,
         })
     ).isRequired,
+    svg: PropTypes.object,
     innerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     outerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     labelRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
